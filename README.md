@@ -1,46 +1,94 @@
-# Getting Started with Create React App
+# Water Network Flow Simulation
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A real-time interactive fluid dynamics simulation for water distribution networks. This web application allows users to design, build, and analyze water network systems with an intuitive visual interface.
 
-## Available Scripts
+![Water Network Simulation](https://i.imgur.com/example.png)
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- **Interactive Network Builder**: Create complex water networks by adding reservoirs, valves, and junctions
+- **Real-time Simulation**: Visualize water flow and pressure changes throughout the network
+- **Valve Control**: Open/close valves to control flow and observe the effects on the system
+- **Parameter Adjustment**: Modify reservoir pressures and pipe diameters to optimize network performance
+- **Visual Feedback**: Color-coded flow direction and pressure indicators
+- **Responsive Canvas**: Pan and zoom to navigate large network layouts
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Physics Model
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+The application implements a simplified fluid dynamics model that includes:
 
-### `npm test`
+- Pressure propagation through connected nodes
+- Flow rate calculation based on pressure differentials
+- Resistance effects from pipe diameter (based on Darcy-Weisbach principles)
+- Valve state effects on network connectivity and pressure isolation
+- Iterative convergence for stable pressure distribution
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Technologies
 
-### `npm run build`
+- **React** - Frontend UI library
+- **TypeScript** - Type-safe programming
+- **Redux** - State management
+- **HTML5 Canvas** - High-performance rendering
+- **CSS3** - Styling and animations
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Getting Started
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Prerequisites
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Node.js (v14.0 or higher)
+- npm or yarn
 
-### `npm run eject`
+### Installation
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+1. Clone the repository
+   ```
+   git clone https://github.com/yourusername/fluid-simulation.git
+   cd fluid-simulation
+   ```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. Install dependencies
+   ```
+   npm install
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+3. Start the development server
+   ```
+   npm start
+   ```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+4. Open your browser to `http://localhost:3000`
 
-## Learn More
+## Usage Guide
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Building a Network
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Use the node control buttons to select what type of component to add (Reservoir, Valve, Junction)
+2. Click on the canvas to place the selected component
+3. Toggle to "Connect Nodes" mode and click on two nodes to connect them with a pipe
+4. Right-click to cancel selection
+
+### Modifying Network Properties
+
+- Click on a reservoir to adjust its pressure
+- Click on a pipe to change its diameter
+- Click on a valve during simulation to toggle it open/closed
+
+### Running the Simulation
+
+1. Build your network with at least one reservoir
+2. Click "Start Simulation" to observe water flow
+3. Modify valve states in real-time to see how it affects the network
+4. Click "Stop Simulation" to pause and make structural changes
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgements
+
+- Fluid dynamics equations adapted from civil engineering principles
+- UI design inspired by modern network visualization tools 
