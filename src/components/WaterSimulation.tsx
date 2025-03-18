@@ -161,47 +161,40 @@ const WaterSimulation: React.FC = () => {
   }, [isSimulationRunning, nodes, edges, dispatch]);
 
   const handleNodeClick = useCallback((nodeId: string) => {
-    const clickedNode = nodes.find(n => n.id === nodeId);
+    const clickedNode = nodes.find((n: Node) => n.id === nodeId);
     if (!clickedNode) return;
     
     // Handle valve toggling during simulation
-    if (clickedNode.type === 'valve' && isSimulationRunning) {
-      dispatch(toggleValve(nodeId));
-      return;
-    }
-    
-    // Handle nodes in connection mode
-    if (isConnectionMode && !isSimulationRunning) {
-      if (!selectedNodeId) {
-        // First node selection in connection mode
-        setSelectedNodeId(nodeId);
-      } else if (selectedNodeId !== nodeId) {
-        // Second node selection - create connection
-        const connectionExists = edges.some(
-          edge => 
-            (edge.sourceId === selectedNodeId && edge.targetId === nodeId) ||
-            (edge.sourceId === nodeId && edge.targetId === selectedNodeId)
-        );
-
-        if (!connectionExists) {
-          dispatch(addEdge({ sourceId: selectedNodeId, targetId: nodeId }));
-        }
-        setSelectedNodeId(null); // Reset selection after connection
+    if (isSimulationRunning) {
+      if (clickedNode.type === 'valve') {
+        dispatch(toggleValve(nodeId));
       }
       return;
     }
-    
-    // Handle reservoir pressure dialog when not in connection mode
-    if (clickedNode.type === 'reservoir' && !isSimulationRunning) {
+
+    // Handle node selection for edge creation
+    if (selectedNodeId === null) {
+      // First node selection
       setSelectedNodeId(nodeId);
-      setIsPressureDialogOpen(true);
+    } else {
+      // Second node selection - create connection
+      const connectionExists = edges.some(
+        (edge: Edge) => 
+          (edge.sourceId === selectedNodeId && edge.targetId === nodeId) ||
+          (edge.sourceId === nodeId && edge.targetId === selectedNodeId)
+      );
+
+      if (!connectionExists && selectedNodeId !== nodeId) {
+        dispatch(addEdge({ sourceId: selectedNodeId, targetId: nodeId }));
+      }
+      setSelectedNodeId(null);
     }
-  }, [selectedNodeId, isConnectionMode, dispatch, edges, nodes, isSimulationRunning]);
+  }, [selectedNodeId, nodes, edges, dispatch, isSimulationRunning]);
 
   const handleEdgeClick = useCallback((edgeId: string) => {
     if (!isSimulationRunning) {
       setSelectedEdgeId(edgeId);
-      const edge = edges.find(e => e.id === edgeId);
+      const edge = edges.find((e: Edge) => e.id === edgeId);
       if (edge) {
         setDiameterValue(edge.diameter.toString());
         setIsDiameterDialogOpen(true);
@@ -273,7 +266,7 @@ const WaterSimulation: React.FC = () => {
     }
   }, [isSimulationRunning]);
 
-  const selectedNode = nodes.find(n => n.id === selectedNodeId);
+  const selectedNode = nodes.find((n: Node) => n.id === selectedNodeId);
 
   return (
     <div className="water-simulation" onContextMenu={handleContextMenu}>

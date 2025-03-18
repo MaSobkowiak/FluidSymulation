@@ -74,7 +74,8 @@ const initialState: SimulationState = {
   },
   selectedNodeId: null,
   renderMode: '2D',
-  isSimulationRunning: false
+  isSimulationRunning: false,
+  selectedEdgeId: null
 };
 
 export const simulationSlice = createSlice({
@@ -96,9 +97,9 @@ export const simulationSlice = createSlice({
       state.network.nodes.push(newNode);
     },
     removeNode: (state, action: PayloadAction<string>) => {
-      state.network.nodes = state.network.nodes.filter(node => node.id !== action.payload);
+      state.network.nodes = state.network.nodes.filter((node: Node) => node.id !== action.payload);
       state.network.edges = state.network.edges.filter(
-        edge => edge.sourceId !== action.payload && edge.targetId !== action.payload
+        (edge: Edge) => edge.sourceId !== action.payload && edge.targetId !== action.payload
       );
     },
     addEdge: (state, action: PayloadAction<{ sourceId: string, targetId: string }>) => {
@@ -111,7 +112,7 @@ export const simulationSlice = createSlice({
       state.network.edges.push(newEdge);
     },
     toggleValve: (state, action: PayloadAction<string>) => {
-      const valve = state.network.nodes.find(node => 
+      const valve = state.network.nodes.find((node: Node) => 
         node.id === action.payload && node.type === 'valve'
       );
       if (valve) {
@@ -126,7 +127,7 @@ export const simulationSlice = createSlice({
     },
     updateFlowRates: (state, action: PayloadAction<Record<string, number>>) => {
       Object.entries(action.payload).forEach(([edgeId, flowRate]) => {
-        const edge = state.network.edges.find(e => e.id === edgeId);
+        const edge = state.network.edges.find((e: Edge) => e.id === edgeId);
         if (edge) {
           edge.flowRate = flowRate;
         }
@@ -134,7 +135,7 @@ export const simulationSlice = createSlice({
     },
     updatePressures: (state, action: PayloadAction<Record<string, number>>) => {
       Object.entries(action.payload).forEach(([nodeId, pressure]) => {
-        const node = state.network.nodes.find(n => n.id === nodeId);
+        const node = state.network.nodes.find((n: Node) => n.id === nodeId);
         if (node) {
           node.pressure = pressure;
         }
@@ -142,14 +143,14 @@ export const simulationSlice = createSlice({
     },
     updateNodePressure: (state, action: PayloadAction<{ nodeId: string, pressure: number }>) => {
       const { nodeId, pressure } = action.payload;
-      const node = state.network.nodes.find(n => n.id === nodeId);
+      const node = state.network.nodes.find((n: Node) => n.id === nodeId);
       if (node) {
         node.pressure = pressure;
       }
     },
     updateEdgeDiameter: (state, action: PayloadAction<{ edgeId: string, diameter: number }>) => {
       const { edgeId, diameter } = action.payload;
-      const edge = state.network.edges.find(e => e.id === edgeId);
+      const edge = state.network.edges.find((e: Edge) => e.id === edgeId);
       if (edge) {
         edge.diameter = diameter;
       }

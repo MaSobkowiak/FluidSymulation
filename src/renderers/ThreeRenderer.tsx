@@ -102,7 +102,7 @@ const ThreeRenderer: React.FC<ThreeRendererProps> = ({ width, height }) => {
     edgeObjectsRef.current.clear();
 
     // Create node objects
-    nodes.forEach(node => {
+    nodes.forEach((node: Node) => {
       const geometry = createNodeGeometry(node);
       const material = createNodeMaterial(node);
       const mesh = new THREE.Mesh(geometry, material);
@@ -132,9 +132,9 @@ const ThreeRenderer: React.FC<ThreeRendererProps> = ({ width, height }) => {
     });
 
     // Create edge objects
-    edges.forEach(edge => {
-      const sourceNode = nodes.find(n => n.id === edge.sourceId);
-      const targetNode = nodes.find(n => n.id === edge.targetId);
+    edges.forEach((edge: Edge) => {
+      const sourceNode = nodes.find((n: Node) => n.id === edge.sourceId);
+      const targetNode = nodes.find((n: Node) => n.id === edge.targetId);
       
       if (sourceNode && targetNode) {
         const points = [
@@ -202,7 +202,7 @@ const ThreeRenderer: React.FC<ThreeRendererProps> = ({ width, height }) => {
         .find(([_, mesh]) => mesh === clickedMesh)?.[0];
 
       if (clickedNodeId) {
-        const node = nodes.find(n => n.id === clickedNodeId);
+        const node = nodes.find((n: Node) => n.id === clickedNodeId);
         if (node?.type === 'valve') {
           dispatch(toggleValve(clickedNodeId));
         }

@@ -20,4 +20,19 @@ export interface Edge {
   targetId: string;
   flowRate: number;
   diameter: number;
+}
+
+export interface NetworkState {
+  nodes: Node[];
+  edges: Edge[];
+}
+
+export type RenderMode = '2D' | '3D';
+
+export interface SimulationState {
+  network: NetworkState;
+  isSimulationRunning: boolean;
+  selectedNodeId: string | null;
+  selectedEdgeId: string | null;
+  renderMode: RenderMode;
 } 
