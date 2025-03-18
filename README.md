@@ -2,7 +2,7 @@
 
 A real-time interactive fluid dynamics simulation for water distribution networks. This web application allows users to design, build, and analyze water network systems with an intuitive visual interface.
 
-![Water Network Simulation](https://i.imgur.com/example.png)
+![Water Network Simulation](app.png)
 
 ## Features
 
