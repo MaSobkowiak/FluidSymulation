@@ -1,26 +1,30 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Provider } from 'react-redux';
+import { store } from './store';
+import WaterSimulation from './components/WaterSimulation';
+import styled from 'styled-components';
 
-function App() {
+const AppContainer = styled.div`
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  padding: 20px;
+`;
+
+const Title = styled.h1`
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 30px;
+`;
+
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <AppContainer>
+        <Title>Water Network Simulation</Title>
+        <WaterSimulation />
+      </AppContainer>
+    </Provider>
   );
-}
+};
 
 export default App;
